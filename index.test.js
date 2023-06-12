@@ -8,21 +8,29 @@ describe("Comprobar que una habitación está ocupada", () => {
       const booking1 = new Booking(
         "luisa",
         "luisa@yahoo.com",
-        new Date("12/1/2023"),
-        new Date("12/5/2023"),
+        new Date("2023-04-10"),
+        new Date("2023-04-18"),
         50,
         room
       );
       const booking2 = new Booking(
         "maria",
         "maria@yahoo.com",
-        new Date("12/6/2023"),
-        new Date("12/7/2023"),
+        new Date("2023-06-12"),
+        new Date("2023-06-18"),
         20,
         room
       );
       room.bookings = [booking1, booking2];
-      expect(room.isOccupied(new Date("2/8/2023"))).toBe(true);
+      expect(room.isOccupied(new Date("2023-04-12"))).toBe(true);
+      expect(room.isOccupied(new Date("2023-06-12"))).toBe(true);
     });
   });
   
+
+  describe("Comprobar el porcentaje de ocupación dado una habitación y un rango de fechas", () => {
+    test("Devolverá el % de noches ocupadas", () => {
+      const room = new Room("single bed", [], 100, 50);
+      Room.totalOccupancyPercentage(room,new Date("2023-04-12"), new Date("2023-04-15") );
+    });
+  });

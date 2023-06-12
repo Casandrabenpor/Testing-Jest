@@ -7,6 +7,14 @@ class Room {
       this.discount = discount;
     }
 
+    isOccupied(date){
+        for(let i = 0; i < this.bookings.length; i++ ){
+            if(date >= this.bookings[i].checkIn && date <= this.bookings[i].checkOut){
+                return true;
+            }
+        }
+        return false;
+    }
 };
 
 
@@ -19,6 +27,10 @@ class Booking {
         this.checkOut = checkOut;
         this.discount = discount;
         this.room = room;
+    }
+
+    getFee(){
+
     }
 };
 
