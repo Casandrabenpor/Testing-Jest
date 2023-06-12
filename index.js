@@ -15,6 +15,10 @@ class Room {
         }
         return false;
     }
+
+    static totalOccupancyPercentage(rooms, startDate, endDate){
+        
+    }
 };
 
 
