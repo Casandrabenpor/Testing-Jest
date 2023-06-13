@@ -1,30 +1,44 @@
 // Clase Room
 class Room {
-    constructor(name,bookings,rate, discount) {
-      this.name = name;
-      this.bookings = bookings;
-      this.rate = rate;
-      this.discount = discount;
+    constructor(name, bookings, rate, discount) {
+        this.name = name;
+        this.bookings = bookings;
+        this.rate = rate;
+        this.discount = discount;
     }
 
-    isOccupied(date){
-        for(let i = 0; i < this.bookings.length; i++ ){
-            if(date >= this.bookings[i].checkIn && date <= this.bookings[i].checkOut){
+    isOccupied(date) {
+        for (let i = 0; i < this.bookings.length; i++) {
+            if (date >= this.bookings[i].checkIn && date <= this.bookings[i].checkOut) {
                 return true;
             }
         }
         return false;
     }
 
-    static totalOccupancyPercentage(rooms, startDate, endDate){
-        
+    occupancyPercentage(startDate, endDate) {
+        let daysOccupied = 0;
+        let totalDays = 0;
+        for (let i = startDate; i <= endDate; i.setDate(i.getDate() + 1)) {
+            totalDays++;
+            if (this.isOccupied(i)) {
+                daysOccupied++;
+            }
+        }
+        return daysOccupied / totalDays * 100;
+    }
+
+
+
+    static totalOccupancyPercentage(rooms, startDate, endDate) {
+
     }
 };
 
 
 //Clase Booking
 class Booking {
-    constructor(name, email, checkIn, checkOut, discount, room){
+    constructor(name, email, checkIn, checkOut, discount, room) {
         this.name = name;
         this.email = email;
         this.checkIn = checkIn;
@@ -33,7 +47,7 @@ class Booking {
         this.room = room;
     }
 
-    getFee(){
+    getFee() {
 
     }
 };
