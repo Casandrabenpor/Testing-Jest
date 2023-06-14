@@ -37,6 +37,10 @@ class Room {
         }
         return sumOfPercentage / rooms.length;
     }
+
+    static availableRooms(rooms, startDate,endDate){
+
+    }
     
 };
 
@@ -53,8 +57,19 @@ class Booking {
     }
 
     getFee() {
+        let priceRoom = this.room.rate;
+        let durationInDays = (this.checkOut - this.checkIn) / (1000 * 60 * 60 * 24);
+        let discountRoom = priceRoom - this.room.discount; // Aplicar el descuento en la tarifa de la habitación
+        let fee = discountRoom * durationInDays;
+       let discountBooking = fee - (fee * this.discount / 100); // Aplicar el descuento en la reserva
+      
+        return discountBooking;
+
 
     }
+
+  
+      
 };
 
 module.exports = {

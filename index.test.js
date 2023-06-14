@@ -189,3 +189,98 @@ describe("Comprobar el porcentaje total de ocupación", () => {
     expect(Room.totalOccupancyPercentage(rooms, startDate, endDate)).toBe(50);
   });
 });
+//availableRooms
+describe("Comprobar la disponibiladad de habitaciones", () => {
+  test("Devuelve un array de habitaciones no ocupadas durante toda la duración", () => {
+    const room1 = new Room("single bed", [], 100, 50);
+    const room2 = new Room("double bed", [], 150, 30);
+    const rooms = [room1, room2];
+    const startDate = new Date("2023-04-12");
+    const endDate = new Date("2023-04-15");
+    const booking1 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      startDate,
+      endDate,
+      50,
+      room1
+    );
+    const booking2 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-04-10"),
+      new Date("2023-04-20"),
+      50,
+      room2
+    );
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+
+    expect(Room.totalOccupancyPercentage(rooms, startDate, endDate)).toBe(0);
+  });
+});
+
+
+
+
+
+//getFee
+
+describe("Comprobar la tarifa total de un booking", () => {
+  // test("Devolverá la tarifa valor por noche con un -20% y -20% de booking", () => {
+  //   const room = new Room("single bed", [], 100, 20);
+  //   const booking = new Booking(
+  //     "marta",
+  //     "marta@yahoo.com",
+  //     new Date('2023-06-01'),
+  //     new Date('2023-06-06'),
+  //     20,
+  //     room
+  //   );
+  //   room.bookings = booking;
+
+  //   expect(booking.getFee()).toBe(320);
+  // });
+  // test("Devolverá la tarifa valor por noche cuando ambos descuentos sean 0", () => {
+  //   const room = new Room("single bed", [], 100, 0);
+  //   const booking = new Booking(
+  //     "marta",
+  //     "marta@yahoo.com",
+  //     new Date('2023-06-01'),
+  //     new Date('2023-06-06'),
+  //     0,
+  //     room
+  //   );
+  //   room.bookings = booking;
+
+  //   expect(booking.getFee()).toBe(500);
+  // });
+  // test("Devolverá la tarifa valor por noche con un -25% y -10% de booking", () => {
+  //   const room = new Room("single bed", [], 100, 25);
+  //   const booking = new Booking(
+  //     "marta",
+  //     "marta@yahoo.com",
+  //     new Date('2023-06-01'),
+  //     new Date('2023-06-05'),
+  //     10,
+  //     room
+  //   );
+  //   room.bookings = booking;
+
+  //   expect(booking.getFee()).toBe(270);
+  // });
+  test("Devolverá la tarifa valor por noche con un -50% y -10% de booking", () => {
+    const room = new Room("single bed", [], 300, 50);
+    const booking = new Booking(
+      "marta",
+      "marta@yahoo.com",
+      new Date('2023-06-01'),
+      new Date('2023-06-05'),
+      10,
+      room
+    );
+    room.bookings = booking;
+
+    expect(booking.getFee()).toBe(540);
+  });
+});
