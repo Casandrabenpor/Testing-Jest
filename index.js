@@ -19,7 +19,7 @@ class Room {
     occupancyPercentage(startDate, endDate) {
         let daysOccupied = 0;
         let totalDays = 0;
-        for (let i = startDate; i <= endDate; i.setDate(i.getDate() + 1)) {
+        for (let i = new Date(startDate.getTime()); i <= endDate; i.setDate(i.getDate() + 1)) {
             totalDays++;
             if (this.isOccupied(i)) {
                 daysOccupied++;
@@ -31,8 +31,13 @@ class Room {
 
 
     static totalOccupancyPercentage(rooms, startDate, endDate) {
-
+        let sumOfPercentage = 0;
+        for(let i = 0; i < rooms.length ; i++){
+            sumOfPercentage += rooms[i].occupancyPercentage(startDate,endDate);
+        }
+        return sumOfPercentage / rooms.length;
     }
+    
 };
 
 

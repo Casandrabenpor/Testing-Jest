@@ -1,7 +1,5 @@
 const { Room, Booking } = require("./index.js");
-
-
-
+//isOccupied
 describe("Comprobar que una habitación está ocupada", () => {
   test("Devolverá true si la habitación está ocupada en la fecha indicada", () => {
     const room = new Room("single bed", [], 100, 50);
@@ -115,8 +113,79 @@ describe("Comprobar el porcentaje total de ocupación", () => {
     const rooms = [room1, room2];
     const startDate = new Date("2023-04-12");
     const endDate = new Date("2023-04-15");
-  
+    const booking1 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      startDate,
+      endDate,
+      50,
+      room1
+    );
+    const booking2 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-04-10"),
+      new Date("2023-04-20"),
+      50,
+      room2
+    );
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
 
     expect(Room.totalOccupancyPercentage(rooms, startDate, endDate)).toBe(100);
+  });
+  test("Devolverá el 0% cuando ninguna noche este ocupada", () => {
+    const room1 = new Room("single bed", [], 100, 50);
+    const room2 = new Room("double bed", [], 150, 30);
+    const rooms = [room1, room2];
+    const startDate = new Date("2023-01-12");
+    const endDate = new Date("2023-01-15");
+    const booking1 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-04-10"),
+      new Date("2023-04-20"),
+      50,
+      room1
+    );
+    const booking2 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-04-10"),
+      new Date("2023-04-20"),
+      50,
+      room2
+    );
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+
+    expect(Room.totalOccupancyPercentage(rooms, startDate, endDate)).toBe(0);
+  });
+  test("Devolverá el 50% cuando ninguna noche este ocupada", () => {
+    const room1 = new Room("single bed", [], 100, 50);
+    const room2 = new Room("double bed", [], 150, 30);
+    const rooms = [room1, room2];
+    const startDate = new Date("2023-01-07");
+    const endDate = new Date("2023-01-10");
+    const booking1 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-01-07"),
+      new Date("2023-01-10"),
+      50,
+      room1
+    );
+    const booking2 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-02-04"),
+      new Date("2023-02-08"),
+      50,
+      room2
+    );
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+
+    expect(Room.totalOccupancyPercentage(rooms, startDate, endDate)).toBe(50);
   });
 });
