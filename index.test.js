@@ -190,8 +190,8 @@ describe("Comprobar el porcentaje total de ocupación", () => {
   });
 });
 //availableRooms
-describe("Comprobar la disponibiladad de habitaciones", () => {
-  test("Devuelve un array de habitaciones no ocupadas durante toda la duración", () => {
+describe("Comprobar la disponibilidad de habitaciones", () => {
+  test("Devuelve un array vacio ya que no hay ninguna habitación disponible", () => {
     const room1 = new Room("single bed", [], 100, 50);
     const room2 = new Room("double bed", [], 150, 30);
     const rooms = [room1, room2];
@@ -216,12 +216,63 @@ describe("Comprobar la disponibiladad de habitaciones", () => {
     room1.bookings = [booking1];
     room2.bookings = [booking2];
 
-    expect(Room.totalOccupancyPercentage(rooms, startDate, endDate)).toBe(0);
+    expect(Room.availableRooms(rooms, startDate, endDate)).toEqual([]);
+  });
+  test("Devuelve un array de 2 habitaciones disponibles", () => {
+    const room1 = new Room("single bed", [], 100, 50);
+    const room2 = new Room("double bed", [], 150, 30);
+    const rooms = [room1, room2];
+    const startDate = new Date("2023-04-12");
+    const endDate = new Date("2023-04-15");
+    const booking1 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-04-25"),
+      new Date("2023-04-29"),
+      50,
+      room1
+    );
+    const booking2 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-04-18"),
+      new Date("2023-04-20"),
+      50,
+      room2
+    );
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+
+    expect(Room.availableRooms(rooms, startDate, endDate)).toEqual([room1,room2]);
+  });
+  test("Devuelve un array de 1 habitacion disponible y otra no disponible", () => {
+    const room1 = new Room("single bed", [], 100, 50);
+    const room2 = new Room("double bed", [], 150, 30);
+    const rooms = [room1, room2];
+    const startDate = new Date("2023-04-12");
+    const endDate = new Date("2023-04-15");
+    const booking1 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-04-12"),
+      new Date("2023-04-13"),
+      50,
+      room1
+    );
+    const booking2 = new Booking(
+      "luisa",
+      "luisa@yahoo.com",
+      new Date("2023-04-18"),
+      new Date("2023-04-20"),
+      50,
+      room2
+    );
+    room1.bookings = [booking1];
+    room2.bookings = [booking2];
+
+    expect(Room.availableRooms(rooms, startDate, endDate)).toEqual([room2]);
   });
 });
-
-
-
 
 
 //getFee

@@ -32,16 +32,22 @@ class Room {
 
     static totalOccupancyPercentage(rooms, startDate, endDate) {
         let sumOfPercentage = 0;
-        for(let i = 0; i < rooms.length ; i++){
-            sumOfPercentage += rooms[i].occupancyPercentage(startDate,endDate);
+        for (let i = 0; i < rooms.length; i++) {
+            sumOfPercentage += rooms[i].occupancyPercentage(startDate, endDate);
         }
         return sumOfPercentage / rooms.length;
     }
 
-    static availableRooms(rooms, startDate,endDate){
-
+    static availableRooms(rooms, startDate, endDate) {
+        let result = [];
+        for (let i = 0; i < rooms.length; i++) {
+            if (rooms[i].occupancyPercentage(startDate, endDate) === 0) {
+                result.push(rooms[i]);
+            }
+        }
+        return result;
     }
-    
+
 };
 
 
@@ -59,18 +65,17 @@ class Booking {
     getFee() {
         let priceRoom = this.room.rate;
         let durationInDays = (this.checkOut - this.checkIn) / (1000 * 60 * 60 * 24);
-        // let discountRoom = priceRoom - this.room.discount; // Aplicar el descuento en la tarifa de la habitación
-        let discountRoom = priceRoom - (priceRoom * this.room.discount / 100); 
+        let discountRoom = priceRoom - (priceRoom * this.room.discount / 100);
         let fee = discountRoom * durationInDays;
-       let discountBooking = fee - (fee * this.discount / 100); // Aplicar el descuento en la reserva
-      
+        let discountBooking = fee - (fee * this.discount / 100); // Aplicar el descuento en la reserva
+
         return discountBooking;
 
 
     }
 
-  
-      
+
+
 };
 
 module.exports = {
