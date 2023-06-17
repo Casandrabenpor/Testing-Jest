@@ -28,8 +28,6 @@ class Room {
         return daysOccupied / totalDays * 100;
     }
 
-
-
     static totalOccupancyPercentage(rooms, startDate, endDate) {
         let sumOfPercentage = 0;
         for (let i = 0; i < rooms.length; i++) {
@@ -61,7 +59,6 @@ class Booking {
         this.discount = discount;
         this.room = room;
     }
-
     getFee() {
         let priceRoom = this.room.rate;
         let durationInDays = (this.checkOut - this.checkIn) / (1000 * 60 * 60 * 24);
@@ -70,12 +67,7 @@ class Booking {
         let discountBooking = fee - (fee * this.discount / 100); // Aplicar el descuento en la reserva
 
         return discountBooking;
-
-
     }
-
-
-
 };
 
 module.exports = {
